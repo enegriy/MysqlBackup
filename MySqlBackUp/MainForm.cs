@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace MySqlBackUp
 {
@@ -73,6 +74,9 @@ namespace MySqlBackUp
             DoBackUp();
         }
 
+        /// <summary>
+        /// Сделать бэкап
+        /// </summary>
         private void DoBackUp()
         {
             if (!string.IsNullOrEmpty(settings.Path))
@@ -92,6 +96,28 @@ namespace MySqlBackUp
                 psi.CreateNoWindow = true;
 
                 System.Diagnostics.Process.Start(psi);
+
+                if (settings.IsDeleteOldFiles)
+                {
+                    DeleteOldFiles(settings.Path);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Удалить старые файлы
+        /// </summary>
+        /// <param name="path"></param>
+        private void DeleteOldFiles(string path)
+        {
+            var files = Directory.GetFiles(path,"*.bak");
+            foreach (var file in files)
+            {
+                FileInfo fi = new FileInfo(file);
+                if ((DateTime.Now - fi.CreationTime).Days > 30)
+                {
+                    File.Delete(file);
+                }
             }
         }
 

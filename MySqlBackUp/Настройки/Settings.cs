@@ -13,10 +13,10 @@ namespace MySqlBackUp
         /// </summary>
         private readonly string fileName = "settings.xml";
         //кодировка
-        System.Text.Encoding encoding = System.Text.Encoding.UTF8;
-
+        private Encoding encoding = Encoding.UTF8;
         private readonly string tagPath = "Path";
         private readonly string tagCount = "CountDoBackUp";
+        private readonly string tagIsDeleteOldFiles = "IsDeleteOldFiles";
 
         /// <summary>
         /// Путь к каталогу
@@ -26,6 +26,10 @@ namespace MySqlBackUp
         /// Количество бэкапов в сутки
         /// </summary>
         public int CountDoBackUp { get; set; }
+        /// <summary>
+        /// Удалить старые файлы
+        /// </summary>
+        public bool IsDeleteOldFiles { get; set; }
 
         /// <summary>
         /// Сохранить в файл
@@ -49,6 +53,10 @@ namespace MySqlBackUp
             node.InnerText = CountDoBackUp.ToString();
             rootNode.AppendChild(node);
 
+            node = xmlDocument.CreateElement(tagIsDeleteOldFiles);
+            node.InnerText = IsDeleteOldFiles.ToString();
+            rootNode.AppendChild(node);
+
             //Добавляю заголовок в файл xml
             xmlDocument.AppendChild(rootNode);
 
@@ -68,20 +76,20 @@ namespace MySqlBackUp
                 foreach (XmlNode node in xmlDocument.DocumentElement.ChildNodes)
                 {
                     if (node.Name == tagPath)
-                    {
                         Path = node.InnerText;
-                    }
 
                     if (node.Name == tagCount)
-                    {
                         CountDoBackUp = int.Parse(node.InnerText);
-                    }
+
+                    if (node.Name == tagIsDeleteOldFiles)
+                        IsDeleteOldFiles = bool.Parse(node.InnerText);
                 }
             }
             catch
             {
                 Path = "";
                 CountDoBackUp = 1;
+                IsDeleteOldFiles = true;
             }
         }
     }
