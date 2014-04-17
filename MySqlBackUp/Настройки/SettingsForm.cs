@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MySqlBackUp
+namespace MysqlBackup
 {
     public partial class SettingsForm : Form
     {
@@ -26,6 +26,7 @@ namespace MySqlBackUp
             tbPath.Text = settings.Path;
             numCount.Value = settings.CountDoBackUp;
             cbDeleteFile.Checked = settings.IsDeleteOldFiles;
+            cbIsAutorun.Checked = settings.IsAutorun;
         }
 
         private void Form_Closing(object sender, FormClosingEventArgs e)
@@ -35,6 +36,7 @@ namespace MySqlBackUp
                 settings.CountDoBackUp = (int)numCount.Value;
                 settings.Path = tbPath.Text;
                 settings.IsDeleteOldFiles = cbDeleteFile.Checked;
+                settings.IsAutorun = cbIsAutorun.Checked;
 
                 settings.SaveToFile();
             }

@@ -1,4 +1,4 @@
-﻿namespace MySqlBackUp
+﻿namespace MysqlBackup
 {
     partial class MainForm
     {
@@ -44,7 +44,7 @@
             // 
             this.notifyIcon.ContextMenuStrip = this.menuStrip;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
-            this.notifyIcon.Text = "MySqlBackUp";
+            this.notifyIcon.Text = "MysqlBackup";
             this.notifyIcon.Visible = true;
             // 
             // menuStrip

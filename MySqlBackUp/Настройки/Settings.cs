@@ -4,19 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace MySqlBackUp
+namespace MysqlBackup
 {
     public class Settings
     {
         /// <summary>
         /// Имя файла
         /// </summary>
-        private readonly string fileName = "settings.xml";
+        private readonly string fileName = System.Windows.Forms.Application.StartupPath + "\\settings.xml";
         //кодировка
         private Encoding encoding = Encoding.UTF8;
         private readonly string tagPath = "Path";
         private readonly string tagCount = "CountDoBackUp";
         private readonly string tagIsDeleteOldFiles = "IsDeleteOldFiles";
+        private readonly string tagIsAutorun = "IsAutorun";
 
         /// <summary>
         /// Путь к каталогу
@@ -30,6 +31,10 @@ namespace MySqlBackUp
         /// Удалить старые файлы
         /// </summary>
         public bool IsDeleteOldFiles { get; set; }
+        /// <summary>
+        /// Автозапуск при входе в систему
+        /// </summary>
+        public bool IsAutorun {get;set;}
 
         /// <summary>
         /// Сохранить в файл
@@ -55,6 +60,10 @@ namespace MySqlBackUp
 
             node = xmlDocument.CreateElement(tagIsDeleteOldFiles);
             node.InnerText = IsDeleteOldFiles.ToString();
+            rootNode.AppendChild(node);
+
+            node = xmlDocument.CreateElement(tagIsAutorun);
+            node.InnerText = IsAutorun.ToString();
             rootNode.AppendChild(node);
 
             //Добавляю заголовок в файл xml
@@ -83,6 +92,9 @@ namespace MySqlBackUp
 
                     if (node.Name == tagIsDeleteOldFiles)
                         IsDeleteOldFiles = bool.Parse(node.InnerText);
+
+                    if (node.Name == tagIsAutorun)
+                        IsAutorun = bool.Parse(node.InnerText);
                 }
             }
             catch
@@ -90,6 +102,7 @@ namespace MySqlBackUp
                 Path = "";
                 CountDoBackUp = 1;
                 IsDeleteOldFiles = true;
+                IsAutorun = true;
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace MySqlBackUp
+﻿namespace MysqlBackup
 {
     partial class SettingsForm
     {
@@ -40,6 +40,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
             this.cbDeleteFile = new System.Windows.Forms.CheckBox();
+            this.cbIsAutorun = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCount)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -89,18 +90,20 @@
             this.tableLayoutPanel1.Controls.Add(this.tbPath, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnBrowseFolder, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.numCount, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.cbDeleteFile, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.cbIsAutorun, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 12F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(732, 135);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(732, 165);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // label2
@@ -143,7 +146,7 @@
             this.tableLayoutPanel2.Controls.Add(this.btnClose, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnOk, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(193, 93);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(193, 123);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -185,16 +188,29 @@
             this.cbDeleteFile.Text = "Удалить старые файлы (созданные более 30 дней назад)";
             this.cbDeleteFile.UseVisualStyleBackColor = true;
             // 
+            // cbIsAutorun
+            // 
+            this.cbIsAutorun.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.cbIsAutorun, 2);
+            this.cbIsAutorun.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbIsAutorun.Location = new System.Drawing.Point(9, 93);
+            this.cbIsAutorun.Margin = new System.Windows.Forms.Padding(9, 3, 3, 3);
+            this.cbIsAutorun.Name = "cbIsAutorun";
+            this.cbIsAutorun.Size = new System.Drawing.Size(646, 24);
+            this.cbIsAutorun.TabIndex = 6;
+            this.cbIsAutorun.Text = "Автозапуск при входе в систему";
+            this.cbIsAutorun.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(732, 135);
+            this.ClientSize = new System.Drawing.Size(732, 165);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(750, 180);
+            this.MinimumSize = new System.Drawing.Size(750, 210);
             this.Name = "SettingsForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -222,5 +238,6 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.CheckBox cbDeleteFile;
+        private System.Windows.Forms.CheckBox cbIsAutorun;
     }
 }

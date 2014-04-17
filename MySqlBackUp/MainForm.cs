@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 
-namespace MySqlBackUp
+namespace MysqlBackup
 {
     public partial class MainForm : Form
     {
@@ -50,6 +50,8 @@ namespace MySqlBackUp
 
         private void miSettings_Click(object sender, EventArgs e)
         {
+            var storeAutorun = settings.IsAutorun;
+
             SettingsForm form = new SettingsForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -60,6 +62,14 @@ namespace MySqlBackUp
                     int interval = (24 / settings.CountDoBackUp) * 120 * 1000;
                     timer.Interval = interval;
                     timer.Start();
+                }
+
+                if (storeAutorun != settings.IsAutorun)
+                {
+                    if (settings.IsAutorun)
+                        AddAutorun();
+                    else
+                        DeleteAutorun();
                 }
             }
         }
@@ -81,7 +91,7 @@ namespace MySqlBackUp
         {
             if (!string.IsNullOrEmpty(settings.Path))
             {
-                string fileName = DateTime.Now.ToString("yyyy-MM-dd__hh");
+                string fileName = DateTime.Now.ToString("yyyy-MM-dd__HH");
 
                 System.Diagnostics.ProcessStartInfo psi =
                     new System.Diagnostics.ProcessStartInfo();
@@ -119,6 +129,28 @@ namespace MySqlBackUp
                     File.Delete(file);
                 }
             }
+        }
+
+        /// <summary>
+        /// Добавить автозапус
+        /// </summary>
+        private void AddAutorun()
+        {
+            Microsoft.Win32.RegistryKey myKey =
+                Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\\", true);
+            myKey.SetValue("MysqlBackup", Application.ExecutablePath);
+            myKey.Close();
+        }
+
+        /// <summary>
+        /// Удалить автозапус
+        /// </summary>
+        private void DeleteAutorun()
+        {
+            Microsoft.Win32.RegistryKey myKey =
+                Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\\", true);
+            myKey.DeleteValue("MysqlBackup",false);
+            myKey.Close();
         }
 
     }
