@@ -34,7 +34,7 @@ namespace MysqlBackup
             if (settings.CountDoBackUp != null)
             {
                 DoBackUp();
-                int interval = (24 / settings.CountDoBackUp) * 120 * 1000;
+                int interval = (24 / settings.CountDoBackUp) * 3600000;
                 timer.Interval = interval;
                 timer.Start();
             }
